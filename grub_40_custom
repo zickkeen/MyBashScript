@@ -1,0 +1,15 @@
+menuentry 'Android' {
+        recordfail
+        load_video
+        insmod gzio
+        if [ x$grub_platform = xxen ]; then insmod xzio; insmod lzopio; fi
+        insmod part_msdos
+        insmod ext2
+        if [ x$feature_platform_search_hint = xy ]; then
+                search --no-floppy --fs-uuid --set=root SET_YOUR_UUID_HERE
+        else
+                search --no-floppy --fs-uuid --set=root SET_YOUR_UUID_HERE
+        fi
+        linux /android/kernel root=/dev/ram0 androidboot.selinux=permissive DPI=160 UVESA_MODE=1366×768 SRC=/android DATA=/data
+        initrd /android/initrd.img
+}
